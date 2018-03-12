@@ -74,9 +74,9 @@ void processEvents(SDL_Event current_event)
 		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_d)
 			cam1->moveRight(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_q)
-			cam1->turnLeft(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE);
+			cam1->turnLeft(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE * 15);
 		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_e)
-			cam1->turnRight(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE);
+			cam1->turnRight(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE * 15);
 		if (current_event.key.keysym.sym == SDLK_v)
 			crystalballorfirstperson_view = !crystalballorfirstperson_view;
 		else if (current_event.key.keysym.sym == SDLK_o)
@@ -213,7 +213,7 @@ int main(int argc, char *argv[])
 	/**************************INITIALIZING OBJECTS THAT WILL BE DRAWN ***************************/
 	myObject *obj;
 	obj = new myObject();
-	if (!obj->readObjects("models/3d-model.obj", true, false))
+	if (!obj->readObjects("models/SYLT_Business_Wom-13_highpoly.obj", true, false))
 		cout << "obj3 readScene failed.\n";
 	obj->createmyVAO();
 	scene.addObjects(obj, "ChristmasChallenge3");
