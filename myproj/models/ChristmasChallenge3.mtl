@@ -1,0 +1,338 @@
+newmtl Bright_JewelSG
+illum 4
+Kd 0.35 0.31 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.97 0.82 0.32
+Ns 0.06
+newmtl Bright_SparklesSG
+illum 4
+Kd 0.35 0.31 0.11
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.81 0.81 0.81
+Ns 0.06
+newmtl Fireplace1SG
+illum 4
+Kd 0.67 0.62 0.57
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.30 0.30 0.30
+Ns 0.06
+newmtl FloorBoards5SG
+illum 4
+Kd 0.31 0.27 0.25
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.40 0.40 0.40
+Ns 0.06
+newmtl PaintedWallsSG
+illum 4
+Kd 0.87 0.83 0.81
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.36 0.36 0.36
+Ns 0.06
+newmtl PineNeedles1SG
+illum 4
+Kd 0.51 0.69 0.25
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.18 0.18 0.18
+Ns 0.06
+newmtl PineNeedlesSG
+illum 4
+Kd 0.21 0.50 0.25
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.48 0.48 0.48
+Ns 0.06
+newmtl Red_MetalSG
+illum 4
+Kd 0.64 0.20 0.24
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 0.58 0.56
+Ns 0.06
+newmtl Stocking_UpperSG
+illum 4
+Kd 0.82 0.81 0.80
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl Stone02SG
+illum 4
+Kd 0.27 0.31 0.34
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl Stone03SG
+illum 4
+Kd 0.24 0.26 0.24
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl Stone04SG
+illum 4
+Kd 0.26 0.24 0.22
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.29 0.29 0.29
+Ns 0.06
+newmtl TissuePaperSG
+illum 4
+Kd 0.86 0.34 0.51
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl TreeTipSG
+illum 4
+Kd 0.40 0.38 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.18 0.18 0.18
+Ns 0.06
+newmtl Wood3SG
+illum 4
+Kd 0.36 0.27 0.24
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.63 0.63 0.63
+Ns 0.06
+newmtl Wood4SG
+illum 4
+Kd 0.36 0.27 0.24
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.63 0.63 0.63
+Ns 0.06
+newmtl WoodTrimSG
+illum 4
+Kd 0.92 0.88 0.85
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.36 0.36 0.36
+Ns 0.06
+newmtl Wrapping_Paper_Red2SG
+illum 4
+Kd 0.69 0.15 0.15
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl Yellow_ChromeSG
+illum 4
+Kd 0.29 0.26 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.82 0.75 0.53
+Ns 0.06
+newmtl anisotropic1SG
+illum 4
+Kd 0.89 0.34 0.40
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn1SG
+illum 4
+Kd 0.46 0.48 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.86 0.86 0.86
+Ns 0.06
+newmtl blinn1SG2
+illum 4
+Kd 0.34 0.32 0.32
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn1SG4
+illum 4
+Kd 0.50 0.11 0.11
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn2SG
+illum 4
+Kd 0.36 0.31 0.26
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn2SG2
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 0.70 0.70 0.70
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn3SG
+illum 4
+Kd 0.68 0.54 0.26
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.36 0.36 0.36
+Ns 0.06
+newmtl blinn3SG2
+illum 4
+Kd 0.50 0.09 0.15
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn4SG
+illum 4
+Kd 0.19 0.19 0.19
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl blinn4SG2
+illum 4
+Kd 0.76 0.57 0.74
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.21 0.21 0.21
+Ns 0.06
+newmtl initialShadingGroup1
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert5SG
+illum 4
+Kd 0.59 0.20 0.17
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl phongE1SG
+illum 4
+Kd 0.48 0.25 0.16
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.18 0.18 0.18
+Ns 0.06
+newmtl phongE1SG2
+illum 4
+Kd 0.71 0.68 0.66
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl phongE1SG4
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl phongE2SG
+illum 4
+Kd 0.12 0.43 0.17
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl phongE2SG2
+illum 4
+Kd 0.14 0.14 0.14
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl phongE3SG
+illum 4
+Kd 0.42 0.29 0.20
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.82 0.82 0.41
+Ns 0.06
+newmtl phongE3SG2
+illum 4
+Kd 0.42 0.29 0.20
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.82 0.82 0.41
+Ns 0.06
+newmtl phongE4SG
+illum 4
+Kd 1.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.74 0.74 0.74
+Ns 0.06
+newmtl phongE5SG
+illum 4
+Kd 0.08 0.40 0.09
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.64 0.64 0.64
+Ns 0.06
+newmtl phongE6SG
+illum 4
+Kd 0.27 0.50 0.28
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.24 0.50 0.25
+Ns 0.06
+newmtl phongE7SG
+illum 4
+Kd 0.34 0.34 0.34
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.80 0.80 0.80
+Ns 0.06
+newmtl phongE8SG
+illum 4
+Kd 0.27 0.16 0.13
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.97 0.72 0.09
+Ns 0.06

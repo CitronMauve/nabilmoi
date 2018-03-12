@@ -1,0 +1,280 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 02.11.2010 15:25:59
+
+newmtl 09___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.2600 0.2600 0.2600
+	map_Ka Map__2_Noise.tga
+	map_Kd Map__2_Noise.tga
+
+newmtl 14___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka E:\modelling\christmas\input images\BrickRound0004_L.jpg
+	map_Kd E:\modelling\christmas\input images\BrickRound0004_L.jpg
+	map_bump E:\modelling\christmas\input images\BrickRound0004_L.jpg
+	bump E:\modelling\christmas\input images\BrickRound0004_L.jpg
+
+newmtl 01___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.2902 0.2431 0.2118
+	Kd 0.2902 0.2431 0.2118
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0116 0.0097 0.0085
+
+newmtl 19___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9020 0.9020 0.9020
+	Kd 0.9020 0.9020 0.9020
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.3788 0.3788 0.3788
+
+newmtl 08___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.1137 0.3137 0.1137
+	Kd 0.1137 0.3137 0.1137
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl 03___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl wire_087225198
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.3412 0.8824 0.7765
+	Kd 0.3412 0.8824 0.7765
+	Ks 0.3500 0.3500 0.3500
+
+newmtl 20___Default
+	Ns 0.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.4118 0.4118 0.4118
+	map_Ka Map__15_Gradient.tga
+	map_Kd Map__15_Gradient.tga
+
+newmtl 21___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.5882 0.5882 0.5882
+	map_Ka E:\modelling\christmas\input images\2750234272_06de124f7a.jpg
+	map_Kd E:\modelling\christmas\input images\2750234272_06de124f7a.jpg
+
+newmtl 02___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9294 0.4824 0.0000
+	Kd 0.9294 0.4824 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl 04___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1529 0.1529 0.1529
+	map_Ka Map__23_Gradient_Ramp.tga
+	map_Kd Map__23_Gradient_Ramp.tga
+	map_d Map__24_Gradient_Ramp.tga
+
+newmtl 12___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.2941 0.2941 0.2941
+	map_Ka E:\modelling\christmas\input images\3d_model_tree.jpg
+	map_Kd E:\modelling\christmas\input images\3d_model_tree.jpg
+	map_d E:\modelling\christmas\input images\3d_model_tree_alpha.jpg
+
+newmtl 10___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0510 0.0510 0.0510
+	Kd 0.0510 0.0510 0.0510
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl wire_177088026
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.6941 0.3451 0.1020
+	Kd 0.6941 0.3451 0.1020
+	Ks 0.3500 0.3500 0.3500
+
+newmtl wire_214229166
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.8392 0.8980 0.6510
+	Kd 0.8392 0.8980 0.6510
+	Ks 0.3500 0.3500 0.3500
+
+newmtl wire_057008136
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.2235 0.0314 0.5333
+	Kd 0.2235 0.0314 0.5333
+	Ks 0.3500 0.3500 0.3500
+
+newmtl wire_153228153
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.6000 0.8941 0.6000
+	Kd 0.6000 0.8941 0.6000
+	Ks 0.3500 0.3500 0.3500
+
+newmtl Hog_eye_rim01
+	Ns 74.6972
+	Ni 1.0000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.6000 0.3000 0.2559
+	Kd 0.8000 0.4000 0.3412
+	Ks 0.5302 0.5302 0.5302
+	Ke 0.0000 0.0000 0.0000
+
+newmtl Hog_eye_whites01
+	Ns 105.5038
+	Ni 1.0000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.7147 0.6647 0.6147
+	Kd 0.9529 0.8863 0.8196
+	Ks 0.0500 0.0500 0.0500
+	Ke 0.5765 0.5362 0.4959
+
+newmtl antelope_mouth01
+	Ns 74.6972
+	Ni 1.0000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.3324 0.2206 0.1324
+	Kd 0.4431 0.2941 0.1765
+	Ks 0.2200 0.2200 0.2200
+	Ke 0.0000 0.0000 0.0000
+
+newmtl 06___Default
+	Ns 12.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9020 0.7765 0.4392
+	Kd 0.9020 0.7765 0.4392
+	Ks 1.2780 1.2780 1.2780
+	Ke 0.1443 0.1242 0.0703
+
+newmtl wire_088177027
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.3451 0.6941 0.1059
+	Kd 0.3451 0.6941 0.1059
+	Ks 0.3500 0.3500 0.3500
+
+newmtl wire_177088027
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.6941 0.3451 0.1059
+	Kd 0.6941 0.3451 0.1059
+	Ks 0.3500 0.3500 0.3500

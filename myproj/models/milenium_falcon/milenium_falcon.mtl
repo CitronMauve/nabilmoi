@@ -1,0 +1,153 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl FalcPlan
+Ka 0.000000 0.000000 0.000000
+Kd 0.568627 0.560784 0.584314
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/FalcPlan.ppm
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl FalcUndr
+Ka 0.000000 0.000000 0.000000
+Kd 0.588235 0.572549 0.596078
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/FalcUndr.ppm
+
+newmtl DrivBack
+Ka 0.000000 0.000000 0.000000
+Kd 0.388235 0.368627 0.396078
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/DrivBack.ppm
+
+newmtl PodSide1
+Ka 0.000000 0.000000 0.000000
+Kd 0.396078 0.384314 0.419608
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/PodSide1.ppm
+
+newmtl Hatch
+Ka 0.000000 0.000000 0.000000
+Kd 0.301961 0.298039 0.301961
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Hatch.ppm
+
+newmtl EscPod_U
+Ka 0.000000 0.000000 0.000000
+Kd 0.462745 0.454902 0.486275
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/EscPod_U.ppm
+
+newmtl EscPod_L
+Ka 0.000000 0.000000 0.000000
+Kd 0.474510 0.470588 0.486275
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/EscPod_L.ppm
+
+newmtl Engine01
+Ka 0.000000 0.000000 0.000000
+Kd 0.341176 0.333333 0.352941
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Engine01.ppm
+
+newmtl SideRear
+Ka 0.000000 0.000000 0.000000
+Kd 0.474510 0.462745 0.474510
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/SideRear.ppm
+
+newmtl SideRear1_
+Ka 0.000000 0.000000 0.000000
+Kd 0.474510 0.462745 0.474510
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/SideRear1_.ppm
+
+newmtl Engine02
+Ka 0.000000 0.000000 0.000000
+Kd 0.913725 0.952941 0.984314
+Ks 0.330000 0.330000 0.330000
+d 0.800000
+map_Kd milenium_falcon/Engine02.ppm
+
+newmtl Vent01
+Ka 0.000000 0.000000 0.000000
+Kd 0.250980 0.247059 0.262745
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Vent01.ppm
+
+newmtl Cockpit2
+Ka 0.000000 0.000000 0.000000
+Kd 0.427451 0.423529 0.447059
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Cockpit2.ppm
+
+newmtl Cockpit3
+Ka 0.000000 0.000000 0.000000
+Kd 0.498039 0.486275 0.509804
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Cockpit3.ppm
+
+newmtl CP_Front
+Ka 0.000000 0.000000 0.000000
+Kd 0.423529 0.423529 0.443137
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/CP_Front.ppm
+
+newmtl DishSide
+Ka 0.000000 0.000000 0.000000
+Kd 0.274510 0.278431 0.282353
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/DishSide.ppm
+
+newmtl Dish02
+Ka 0.000000 0.000000 0.000000
+Kd 0.509804 0.505882 0.529412
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Dish02.ppm
+
+newmtl Dish01
+Ka 0.000000 0.000000 0.000000
+Kd 0.494118 0.490196 0.498039
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Dish01.ppm
+
+newmtl Turret_U
+Ka 0.000000 0.000000 0.000000
+Kd 0.537255 0.521569 0.549020
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Turret_U.ppm
+
+newmtl Turret_L
+Ka 0.000000 0.000000 0.000000
+Kd 0.560784 0.545098 0.564706
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/Turret_L.ppm
+
+newmtl _Charcoal_
+Ka 0.000000 0.000000 0.000000
+Kd 0.137255 0.137255 0.137255
+Ks 0.330000 0.330000 0.330000
+
+newmtl SidePort
+Ka 0.000000 0.000000 0.000000
+Kd 0.333333 0.337255 0.341176
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/SidePort.ppm
+
+newmtl M_Inside
+Ka 0.000000 0.000000 0.000000
+Kd 0.545098 0.537255 0.560784
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/M_Inside.ppm
+
+newmtl MandbEnd
+Ka 0.000000 0.000000 0.000000
+Kd 0.262745 0.247059 0.247059
+Ks 0.330000 0.330000 0.330000
+map_Kd milenium_falcon/MandbEnd.ppm
+
