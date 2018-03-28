@@ -21,23 +21,16 @@ mySubObject::mySubObject(myMaterial *m, size_t s, size_t e, string n = "noname")
 
 	if (m != nullptr) material = new myMaterial(m);
 	else material = new myMaterial();
-
-	color_texture = nullptr;
-	bump_texture = nullptr;
+	
+	textures.clear();
 }
 
 mySubObject::mySubObject(size_t s, size_t e, string n) : mySubObject(nullptr, s, e, n) { }
 
-void mySubObject::setColorTexture(myTexture* t)
+void mySubObject::setTexture(myTexture* t, TEXTURE_TYPE type)
 {
-	color_texture = t;
+	textures[type] = t;
 }
-
-void mySubObject::setBumpTexture(myTexture* t)
-{
-	bump_texture = t;
-}
-
 
 mySubObject::~mySubObject()
 {
@@ -50,10 +43,10 @@ void mySubObject::displaySubObject(myVAO *vao, myShader *shader)
 
 	if (material != nullptr) material->setUniform(shader, "material");
 
-	if (color_texture != nullptr)
+	if (textures.find(COLORMAP) != textures.end() && textures[COLORMAP] != nullptr)
 	{
 		shader->setUniform("totexture", 1);
-		color_texture->bind(shader, "tex", 1);
+		textures[COLORMAP]->bind(shader, "tex", 1);
 	}
 	else
 	{
@@ -61,8 +54,15 @@ void mySubObject::displaySubObject(myVAO *vao, myShader *shader)
 		shader->setUniform("totexture", 0);
 	}
 
-	if (bump_texture != nullptr) bump_texture->bind(shader, "bumptex", 2);
-	else shader->setUniform("bumptex", static_cast<int>(11));
+	if (textures.find(BUMPMAP) != textures.end() && textures[BUMPMAP] != nullptr )
+		textures[BUMPMAP]->bind(shader, "bumptex", 2);
+	else 
+		shader->setUniform("bumptex", static_cast<int>(11));
+
+	if (textures.find(CUBEMAP) != textures.end() && textures[CUBEMAP] != nullptr)
+		textures[CUBEMAP]->bind(shader, "cubetex", 3);
+	else 
+		shader->setUniform("cubetex", static_cast<int>(11));
 	
 	if (vao != nullptr) vao->draw(start, end);
 }

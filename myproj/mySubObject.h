@@ -6,6 +6,7 @@
 #include "myVAO.h"
 #include "myMaterial.h"
 #include "myTexture.h"
+#include <map>
 
 class myShader;
 
@@ -14,16 +15,18 @@ class mySubObject
 public:
 	size_t start, end;
 	myMaterial *material;
-	myTexture *color_texture;
-	myTexture *bump_texture;
+
+	enum TEXTURE_TYPE { COLORMAP, BUMPMAP, CUBEMAP };
+	std::map<TEXTURE_TYPE, myTexture *> textures;
 
 	std::string name;
 
 	mySubObject(myMaterial *m, size_t s, size_t e, std::string n) ;
 	mySubObject(size_t s, size_t e, std::string);
-	void setColorTexture(myTexture *t);
-	void setBumpTexture(myTexture *t);
+	
 	~mySubObject();
+
+	void setTexture(myTexture *t, TEXTURE_TYPE);
 
 	void displaySubObject(myVAO *vao, myShader *);
 	void displayNormals(myVAO *vao, myShader *);

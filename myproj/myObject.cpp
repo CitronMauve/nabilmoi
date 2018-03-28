@@ -43,47 +43,38 @@ void myObject::clear()
 
 void myObject::readMaterials(std::string mtlfilename, unordered_map<string, myMaterial *> & materials, unordered_map<string, myTexture *> & textures)
 {
-	clear();
+	ifstream mtlfin(mtlfilename);
 
-	string s, t, name;
-	myMaterial* material;
-
-	ifstream fin(mtlfilename);
-
-	while (getline(fin, s)) {
-		stringstream myline(s);
-		myline >> t;
-		if (t == "newmtl") {
-			myline >> name;
-			material = new myMaterial();
-			material->mat_name = name;
-			materials.insert(pair<string, myMaterial *>(name, material));
-		} else if (t == "illum") {}
-		else if (t == "Tf") {}
-		else if (t == "Ni") {}
-		else if (t == "Kd") {
-			float x, y, z;
-			myline >> x >> y >> z;
-			materials[name]->kd = glm::vec4(x, y, z, 1);
-		}
-		else if (t == "Ka") {
-			float x, y, z;
-			myline >> x >> y >> z;
-			materials[name]->ka = glm::vec4(x, y, z, 1);
-		}
-		else if (t == "Ks") {
-			float x, y, z;
-			myline >> x >> y >> z;
-			materials[name]->ks = glm::vec4(x, y, z, 1);
-		}
-		else if (t == "Ns") {
-			float coef;
-			myline >> coef;
-			materials[name]->specular_coefficient = coef;
-		}
-		s.clear();
-		t.clear();
+	if (!mtlfin.is_open())
+	{
+		cout << "Error! Unable to open mtl file.\n";
+		return;
 	}
+
+	string v;
+	myMaterial *curr_mat = nullptr;
+
+	while (mtlfin >> v)
+	{
+		if (v == "newmtl")
+		{
+			curr_mat = new myMaterial();
+			mtlfin >> curr_mat->mat_name;
+			materials.emplace(curr_mat->mat_name, curr_mat);
+		}
+		else if (v == "Ns") mtlfin >> curr_mat->specular_coefficient;
+		else if (v == "Ka") mtlfin >> curr_mat->ka.r >> curr_mat->ka.g >> curr_mat->ka.b;
+		else if (v == "Kd") mtlfin >> curr_mat->kd.r >> curr_mat->kd.g >> curr_mat->kd.b;
+		else if (v == "Ks") mtlfin >> curr_mat->ks.r >> curr_mat->ks.g >> curr_mat->ks.b;
+		else if (v == "map_Kd") 
+		{
+			string t;
+			mtlfin >> t;
+			size_t prefix = mtlfilename.find_last_of("/");
+			textures.emplace(curr_mat->mat_name, new myTexture(mtlfilename.substr(0, prefix) + "/" + t) );
+		}
+	}
+	mtlfin.close();
 }
 
 bool myObject::readObjects(std::string filename, bool individualvertices_per_face, bool tonormalize)
@@ -116,7 +107,7 @@ bool myObject::readObjects(std::string filename, bool individualvertices_per_fac
 		{
 			curr_end = indices.size();
 			mySubObject *o = new mySubObject(curr_mat, curr_start, curr_end, curr_name);
-			o->setColorTexture(curr_texture);
+			o->setTexture(curr_texture, mySubObject::COLORMAP);
 			objects.emplace(curr_name, o);
 
 			curr_start = curr_end;
@@ -152,7 +143,7 @@ bool myObject::readObjects(std::string filename, bool individualvertices_per_fac
 		{
 			curr_end = indices.size();
 			mySubObject *o = new mySubObject(curr_mat, curr_start, curr_end, curr_name);
-			o->setColorTexture(curr_texture);
+			o->setTexture(curr_texture, mySubObject::COLORMAP);
 			objects.emplace(curr_name, o);
 
 			curr_start = curr_end;
@@ -228,7 +219,7 @@ bool myObject::readObjects(std::string filename, bool individualvertices_per_fac
 
 	curr_end = indices.size();
 	mySubObject *o = new mySubObject(curr_mat, curr_start, curr_end, curr_name);
-	o->setColorTexture(curr_texture);
+	o->setTexture(curr_texture, mySubObject::COLORMAP);
 	objects.emplace(curr_name, o);
 
 	if (!individualvertices_per_face)
@@ -453,17 +444,12 @@ void myObject::computeTangents()
 }
 
 
-void myObject::setColorTexture(myTexture *tex)
+void myObject::setTexture(myTexture *tex, mySubObject::TEXTURE_TYPE type)
 {
 	for (std::unordered_multimap<std::string, mySubObject *>::iterator it = objects.begin(); it != objects.end(); ++it)
-		it->second->setColorTexture(tex);
+		it->second->setTexture(tex, type);
 }
 
-void myObject::setBumpTexture(myTexture *tex)
-{
-	for (std::unordered_multimap<std::string, mySubObject *>::iterator it = objects.begin(); it != objects.end(); ++it)
-		it->second->setBumpTexture(tex);
-}
 
 float myObject::closestTriangle(glm::vec3 ray, glm::vec3 origin, size_t & picked_triangle)
 {
@@ -504,6 +490,6 @@ float myObject::closestTriangle(glm::vec3 ray, glm::vec3 origin, size_t & picked
 		}
 	}
 
-	if (picked_triangle == 0) return -1;
+	if (picked_object == nullptr) return -1;
 	else return min_t;
 }

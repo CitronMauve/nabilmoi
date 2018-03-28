@@ -21,7 +21,7 @@ myCamera::myCamera()
 
 	fovy = DEFAULT_FOVY;
 	zNear = DEFAULT_zNEAR;
-	zFar = DEFAULT_zFAR * 100;
+	zFar = DEFAULT_zFAR;
 
 	window_width = DEFAULT_WINDOW_WIDTH;
 	window_height = DEFAULT_WINDOW_HEIGHT;
@@ -124,7 +124,7 @@ void myCamera::moveForward(float size)
 	camera_eye += size * camera_forward;
 }
 
-void myCamera::moveLeft(float size) 
+void myCamera::moveLeft(float size)
 {
 	camera_eye -= size * glm::cross(camera_forward, camera_up);
 }

@@ -8,6 +8,14 @@ myShaders::myShaders()
 
 myShaders::~myShaders()
 {
+	clear();
+}
+
+void myShaders::clear()
+{
+	for (size_t i = 0;i < all_shaders.size(); i++)
+		delete all_shaders[i];
+	all_shaders.clear();
 }
 
 void myShaders::addShader(myShader *shader, std::string name)

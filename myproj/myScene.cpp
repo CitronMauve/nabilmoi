@@ -55,7 +55,6 @@ float myScene::closestObject(glm::vec3 ray, glm::vec3 origin, myObject * & picke
 	float min_t = std::numeric_limits<float>::max();
 	
 	picked_object = nullptr;
-	picked_triangle_index = -1;
 	int min_index = -1;
 
 	for (unsigned int i=0;i<all_objects.size();i++)

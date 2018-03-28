@@ -44,9 +44,8 @@ public:
 
 	void computeTangents();
 	
-	void setColorTexture(myTexture *);
-	void setBumpTexture(myTexture *);
-
+	void setTexture(myTexture *, mySubObject::TEXTURE_TYPE);
+	
 	myVAO *vao;
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::ivec3> indices;

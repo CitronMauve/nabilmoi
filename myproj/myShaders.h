@@ -10,6 +10,7 @@ public:
 
 	myShaders();
 	~myShaders();
+	void clear();
 
 	void addShader(myShader *, std::string name);
 	myShader * & operator[](const std::string name);

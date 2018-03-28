@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "STB/stb_image.h"
+#include "include/STB/stb_image.h"
 
 myTexture::myTexture()
 {
@@ -12,10 +12,18 @@ myTexture::myTexture()
 	texture_type = GL_TEXTURE_2D;
 }
 
-myTexture::myTexture(std::string filename, GLenum type)
+myTexture::myTexture(std::string filename)
 {
-	readTexture(filename, type);
+	texture_type = GL_TEXTURE_2D;
+	readTexture_2D(filename);
 }
+
+myTexture::myTexture(std::vector<std::string> & filenames)
+{
+	texture_type = GL_TEXTURE_CUBE_MAP;
+	readTexture_cubemap(filenames);
+}
+
 
 myTexture::~myTexture()
 {
@@ -23,49 +31,52 @@ myTexture::~myTexture()
 }
 
 
-bool myTexture::readTexture(std::string filename, GLenum type)
+bool myTexture::readTexture_2D(std::string filename)
 {
 	int size;
 	GLubyte *mytexture = stbi_load(filename.c_str(), &width, &height, &size, 4);
 
-	texture_type = type;
 	glGenTextures(1, &texture_id);
-	glBindTexture(texture_type, texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
 
-	glTexParameterf(texture_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(texture_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(texture_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameterf(texture_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glTexImage2D(texture_type, 0, GL_RGBA, static_cast<GLuint>(width), static_cast<GLuint>(height), 0, GL_RGBA, GL_UNSIGNED_BYTE, mytexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, static_cast<GLuint>(width), static_cast<GLuint>(height), 0, GL_RGBA, GL_UNSIGNED_BYTE, mytexture);
 
-	glGenerateMipmap(texture_type);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	delete[] mytexture;
 	return true;
 }
 
 
-/*
-bool myTexture::readTexture(std::string filename, GLenum type)
+void myTexture::readTexture_cubemap(std::vector<std::string>& filenames)
 {
-	GLubyte *mytexture = readPPMfile(filename.c_str(), width, height);
-
-	texture_type = type;
 	glGenTextures(1, &texture_id);
-	glBindTexture(texture_type, texture_id);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture_id);
 
-	glTexParameterf(texture_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(texture_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(texture_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(texture_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	enum Face { LEFT, RIGHT, TOP, BOTTOM, FRONT, BACK };
 
-	glTexImage2D(texture_type, 0, GL_RGBA, static_cast<GLuint>(width), static_cast<GLuint>(height), 0, GL_RGBA, GL_UNSIGNED_BYTE, mytexture);
+	for (Face f : {LEFT, RIGHT, TOP, BOTTOM, FRONT, BACK})
+	{
+		int size, width, height;
+		GLubyte *mytexture = stbi_load(filenames[f].c_str(), &width, &height, &size, 4);
 
-	delete[] mytexture;
-	return true;
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + f, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, mytexture);
+
+		delete[] mytexture;
+	}
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
-*/
+
 
 void myTexture::bind(myShader *shader, std::string name, GLuint texture_offset )
 {

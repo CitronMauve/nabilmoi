@@ -31,9 +31,9 @@ public:
 	glm::mat4 viewMatrix() const;
 	
 	void moveForward(float size);
-	void moveBack(float size);
 	void moveLeft(float size);
 	void moveRight(float size);
+	void moveBack(float size);
 	void turnLeft(float size);
 	void turnRight(float size);
 

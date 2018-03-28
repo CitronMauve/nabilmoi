@@ -55,6 +55,12 @@
     <None Include="shaders\imageprocessing-fragmentshader.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\environmentmap-fragmentshader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\environmentmap-vertexshader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helperFunctions.h">

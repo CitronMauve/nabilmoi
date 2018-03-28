@@ -36,7 +36,7 @@ bool mouse_button_pressed = false;
 bool quit = false;
 bool windowsize_changed = true;
 bool crystalballorfirstperson_view = false;
-float movement_stepsize = DEFAULT_KEY_MOVEMENT_STEPSIZE * 100;
+float movement_stepsize = DEFAULT_KEY_MOVEMENT_STEPSIZE;
 
 // Camera parameters.
 myCamera *cam1;
@@ -63,15 +63,17 @@ void processEvents(SDL_Event current_event)
 	{
 		if (current_event.key.keysym.sym == SDLK_ESCAPE)
 			quit = true;
+		/*
 		if (current_event.key.keysym.sym == SDLK_r)
 			cam1->reset();
+			*/
 		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w)
 			cam1->moveForward(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s)
 			cam1->moveBack(movement_stepsize);
-		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_a)
+		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a)
 			cam1->moveLeft(movement_stepsize);
-		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_d)
+		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d)
 			cam1->moveRight(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_q)
 			cam1->turnLeft(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE * 15);
@@ -209,18 +211,110 @@ int main(int argc, char *argv[])
 	scene.lights->lights.push_back(new myLight(glm::vec3(1, 0, 0), glm::vec3(0.5, 0.5, 0.5), myLight::POINTLIGHT));
 	scene.lights->lights.push_back(new myLight(glm::vec3(0, 1, 0), glm::vec3(0.6, 0.6, 0.6), myLight::POINTLIGHT));
 
+	/**************************INITIALIZING FBO ***************************/
+	//plane will draw the color_texture of the framebufferobject fbo.
+	myFBO *fbo = new myFBO();
+	fbo->initFBO(cam1->window_width, cam1->window_height);
 
 	/**************************INITIALIZING OBJECTS THAT WILL BE DRAWN ***************************/
 	myObject *obj;
+	//reading a scene with texture coordinates and normals read from the obj file
 	obj = new myObject();
-	if (!obj->readObjects("models/SYLT_Business_Wom-13_highpoly.obj", true, false))
+	//scene->readObjects("models/bus/bus.obj", true);
+	//scene->readObjects("models/Pikachu/model.obj", true);
+	obj->readObjects("models/milenium_falcon/milenium_falcon.obj", true, false);
+	//obj->readObjects("models/oldman/muro.obj", true, false);
+	obj->scale(0.1f, 0.1f, 0.1f);
+	obj->rotate(0, 1, 0, 1.57f);
+	obj->translate(20.0f, 0.0f, 0.0f);
+	obj->createmyVAO();	
+	scene.addObjects(obj, "muro");
+
+	//reading a scene with normals read from the obj file and textures
+	obj = new myObject();
+	obj->readObjects("models/Untitled.obj", true, false);
+	obj->scale(0.1f, 0.1f, 0.1f);
+	obj->translate(30.0f, 0.0f, 20.0f);
+	obj->createmyVAO();
+	scene.addObjects(obj, "Untitled");
+
+	//the big christmas scene.
+	obj = new myObject();
+	if (!obj->readObjects("models/ChristmasChallenge3.obj", true, false))
 		cout << "obj3 readScene failed.\n";
 	obj->createmyVAO();
 	scene.addObjects(obj, "ChristmasChallenge3");
 
+	obj = new myObject();
+	obj->readObjects("models/plane.obj", false, false);
+	obj->computeTexturecoordinates_plane();
+	obj->createmyVAO();
+	obj->setTexture(fbo->colortexture, mySubObject::COLORMAP);
+	obj->translate(0, 0, -2);
+	scene.addObjects(obj, "plane");
+	
+	obj = new myObject();
+	obj->readObjects("models/plane.obj", false, false);
+	obj->computeTexturecoordinates_plane();
+	obj->createmyVAO();
+	obj->setTexture(fbo->colortexture, mySubObject::COLORMAP);
+	obj->scale(0.1f, 0.1f, 0.1f);
+	obj->translate(0.57f, -0.17f, -2.0f);
+	scene.addObjects(obj, "plane2");
+
+	//objectwithtexture has spheretexture of scenary.ppm
+	obj = new myObject();
+	obj->readObjects("models/sphere.obj", false, true);
+	obj->computeTexturecoordinates_sphere();
+	obj->createmyVAO();
+	obj->setTexture(new myTexture("models/scenary.jpg"), mySubObject::COLORMAP);
+	obj->translate(6, 4, 8);
+	scene.addObjects(obj, "objectwithtexture");
+
+	//apple has bump texture
+	obj = new myObject();
+	obj->readObjects("models/apple.obj", false, true);
+	obj->computeTexturecoordinates_cylinder();
+	obj->computeTangents();
+	obj->createmyVAO();
+	obj->setTexture(new myTexture("models/br-diffuse.ppm"), mySubObject::COLORMAP);
+	obj->setTexture(new myTexture("models/br-normal.ppm"), mySubObject::BUMPMAP);
+	obj->translate(16, 14, 18);
+	scene.addObjects(obj, "apple");
+
+	//mario 
+	obj = new myObject();
+	obj->readObjects("models/MarioandLuigi/mario_obj.obj", true, false);
+	obj->createmyVAO();
+	obj->scale(0.1f, 0.1f, 0.1f);
+	scene.addObjects(obj, "mario");
+
+	//enviornment mapped object
+	obj = new myObject();
+	obj->readObjects("models/apple.obj", false, false);
+	obj->computeTexturecoordinates_sphere();
+	obj->createmyVAO();
+	//vector <string> cubemaps = { "models/yokohamapark/posx.jpg", "models/yokohamapark/negx.jpg", "models/yokohamapark/posy.jpg", "models/yokohamapark/negy.jpg", "models/yokohamapark/posz.jpg", "models/yokohamapark/negz.jpg" };
+	vector <string> cubemaps = { "models/building/posx.jpg", "models/building/negx.jpg", "models/building/posy.jpg", "models/building/negy.jpg", "models/building/posz.jpg", "models/building/negz.jpg" };
+	obj->setTexture(new myTexture("models/scenary.jpg"), mySubObject::COLORMAP);
+	obj->setTexture(new myTexture(cubemaps), mySubObject::CUBEMAP);
+	obj->scale(10.0f, 10.0f, 10.0f);
+	obj->translate(10, 6, 10);
+	scene.addObjects(obj, "applewithenvironmentmap");
+
+
+
 	/**************************SETTING UP OPENGL SHADERS ***************************/
 	myShaders shaders;
+	shaders.addShader(new myShader("shaders/basic-vertexshader.glsl", "shaders/basic-fragmentshader.glsl"), "shader_basic");
 	shaders.addShader(new myShader("shaders/phong-vertexshader.glsl", "shaders/phong-fragmentshader.glsl"), "shader_phong");
+	shaders.addShader(new myShader("shaders/texture-vertexshader.glsl", "shaders/texture-fragmentshader.glsl"), "shader_texture");
+	shaders.addShader(new myShader("shaders/texture+phong-vertexshader.glsl", "shaders/texture+phong-fragmentshader.glsl"), "shader_texturephong");
+	shaders.addShader(new myShader("shaders/bump-vertexshader.glsl", "shaders/bump-fragmentshader.glsl"), "shader_bump");
+	shaders.addShader(new myShader("shaders/imageprocessing-vertexshader.glsl", "shaders/imageprocessing-fragmentshader.glsl"), "shader_imageprocessing");
+	shaders.addShader(new myShader("shaders/environmentmap-vertexshader.glsl", "shaders/environmentmap-fragmentshader.glsl"), "shader_environmentmap");
+
+
 
 	myShader *curr_shader;
 	// display loop
@@ -230,6 +324,12 @@ int main(int argc, char *argv[])
 		{
 			SDL_GetWindowSize(window, &cam1->window_width, &cam1->window_height);
 			windowsize_changed = false;
+
+			if (fbo) delete fbo;
+			fbo = new myFBO();
+			fbo->initFBO(cam1->window_width, cam1->window_height);
+			scene["plane"]->setTexture(fbo->colortexture, mySubObject::COLORMAP);
+			scene["plane2"]->setTexture(fbo->colortexture, mySubObject::COLORMAP);
 		}
 
 		//Computing transformation matrices. Note that model_matrix will be computed and set in the displayScene function for each object separately
@@ -250,9 +350,80 @@ int main(int argc, char *argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		/*-----------------------*/
 		curr_shader = shaders["shader_phong"];
 		curr_shader->start();
+		fbo->bind();
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
+			scene["objectwithtexture"]->displayObjects(curr_shader, view_matrix);
+		}
+		fbo->unbind();
 		scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
+		/*-----------------------*/
+		curr_shader = shaders["shader_texturephong"];
+		curr_shader->start();
+		scene["objectwithtexture"]->displayObjects(curr_shader, view_matrix);
+		scene["plane"]->displayObjects(curr_shader, view_matrix);
+		scene["apple"]->translate(2, 0, -2);
+		scene["apple"]->displayObjects(curr_shader, view_matrix);
+		scene["apple"]->translate(-2, 0, 2);
+		/*-----------------------*/
+		curr_shader = shaders["shader_bump"];
+		curr_shader->start();
+		scene["apple"]->displayObjects(curr_shader, view_matrix);
+		/*-----------------------*/
+		curr_shader = shaders["shader_environmentmap"];
+		curr_shader->start();
+		scene["applewithenvironmentmap"]->displayObjects(curr_shader, view_matrix);
+		/*-----------------------*/
+		curr_shader = shaders["shader_texturephong"];
+		curr_shader->start();
+		scene["muro"]->displayObjects(curr_shader, view_matrix);
+		scene["Untitled"]->displayObjects(curr_shader, view_matrix);
+		scene["mario"]->displayObjects(curr_shader, view_matrix);
+
+		fbo->clear();
+		fbo->bind();
+		{
+			scene["mario"]->displayObjects(curr_shader, view_matrix);
+			scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
+			scene["muro"]->displayObjects(curr_shader, view_matrix);
+			scene["Untitled"]->displayObjects(curr_shader, view_matrix);
+		}
+		fbo->unbind();
+		/*-----------------------*/
+		curr_shader = shaders["shader_imageprocessing"];
+		curr_shader->start();
+		curr_shader->setUniform("input_color", glm::vec4(0, 1, 0, 1));
+
+		curr_shader->setUniform("myview_matrix", glm::mat4(1.0f));
+
+		scene["plane2"]->displayObjects(curr_shader, glm::mat4(1.0f));
+
+		curr_shader->setUniform("myview_matrix", view_matrix);
+		/*-----------------------*/
+		curr_shader = shaders["shader_basic"];
+		curr_shader->start();
+
+		if (picked_object != nullptr)
+		{
+			curr_shader->setUniform("mymodel_matrix", picked_object->model_matrix);
+
+			curr_shader->setUniform("input_color", glm::vec4(0, 1, 0, 1));
+			picked_object->displayObjects(curr_shader, view_matrix);
+
+			curr_shader->setUniform("input_color", glm::vec4(1, 0, 0, 1));
+			glBegin(GL_TRIANGLES);
+			{
+				glVertex3fv(&(picked_object->vertices[picked_object->indices[picked_triangle_index][0]][0]));
+				glVertex3fv(&(picked_object->vertices[picked_object->indices[picked_triangle_index][1]][0]));
+				glVertex3fv(&(picked_object->vertices[picked_object->indices[picked_triangle_index][2]][0]));
+			}
+			glEnd();
+		}
+		/*-----------------------*/
 
 
 		SDL_GL_SwapWindow(window);
@@ -263,6 +434,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Freeing resources before exiting.
+
 	// Destroy window
 	if (glContext) SDL_GL_DeleteContext(glContext);
 	if (window) SDL_DestroyWindow(window);
