@@ -69,17 +69,6 @@ void processEvents(SDL_Event current_event)
 			quit = true;
 		if (current_event.key.keysym.sym == SDLK_r)
 			cam1->reset();
-		if (current_event.key.keysym.sym == SDLK_u)
-		{
-			physics[scene["ball"]]->setCollisionFlags(btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-			btTransform t = physics[scene["ball"]]->getWorldTransform();
-			((btRigidBody *) physics[scene["ball"]])->setMotionState(new btDefaultMotionState(t));
-			((btRigidBody *)physics[scene["ball"]])->setLinearVelocity(btVector3(cam1->camera_forward.x*60, cam1->camera_forward.y * 60, cam1->camera_forward.z * 60));
-
-			t = physics[scene["mario"]]->getWorldTransform();
-			((btRigidBody *)physics[scene["mario"]])->setMotionState(new btDefaultMotionState(t));
-			((btRigidBody *)physics[scene["mario"]])->setLinearVelocity(btVector3(cam1->camera_forward.x * 60, cam1->camera_forward.y * 60, cam1->camera_forward.z * 60));
-		}
 		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w)
 			cam1->moveForward(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s)
@@ -88,30 +77,6 @@ void processEvents(SDL_Event current_event)
 			cam1->moveLeft(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d)
 			cam1->moveRight(movement_stepsize);
-		// Move camera right and left
-		/*
-		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_q)
-			cam1->turnLeft(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE * 15);
-		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_e)
-			cam1->turnRight(DEFAULT_LEFTRIGHTTURN_MOVEMENT_STEPSIZE * 15);
-			*/
-		if (current_event.key.keysym.sym == SDLK_v)
-			crystalballorfirstperson_view = !crystalballorfirstperson_view;
-		else if (current_event.key.keysym.sym == SDLK_o)
-		{
-			//nfdchar_t *outPath = NULL;
-			//nfdresult_t result = NFD_OpenDialog("obj", NULL, &outPath);
-			//if (result != NFD_OKAY) return;
-
-			//myObject *obj_tmp = new myObject();
-			//if (!obj_tmp->readObjects(outPath))
-			//{
-			//	delete obj_tmp;
-			//	return;
-			//}
-			//delete obj1;
-			//obj1 = obj_tmp;
-		}
 		break;
 	}
 	case SDL_MOUSEBUTTONDOWN:
@@ -135,29 +100,6 @@ void processEvents(SDL_Event current_event)
 	}
 	case SDL_MOUSEMOTION:
 	{
-		/*
-		int x = current_event.motion.x;
-		int y = current_event.motion.y;
-
-		int dx = x - mouse_position[0];
-		int dy = y - mouse_position[1];
-
-		mouse_position[0] = x;
-		mouse_position[1] = y;
-		*/
-
-		// if ((dx == 0 && dy == 0) || !mouse_button_pressed) return;
-		// if (dx == 0 && dy == 0) return;
-
-		/*
-		if ((SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT)) && crystalballorfirstperson_view)
-		cam1->crystalball_rotateView(dx, dy);
-		else if ((SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT)) && !crystalballorfirstperson_view)
-		cam1->firstperson_rotateView(dx, dy);
-		else if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_RIGHT))
-		cam1->panView(dx, dy);
-		*/
-
 		cam1->firstperson_rotateView(current_event.motion.xrel, current_event.motion.yrel);
 
 		break;
@@ -166,14 +108,6 @@ void processEvents(SDL_Event current_event)
 	{
 		if (current_event.window.event == SDL_WINDOWEVENT_RESIZED)
 			windowsize_changed = true;
-		break;
-	}
-	case SDL_MOUSEWHEEL:
-	{
-		if (current_event.wheel.y < 0)
-			cam1->moveBack(DEFAULT_MOUSEWHEEL_MOVEMENT_STEPSIZE);
-		else if (current_event.wheel.y > 0)
-			cam1->moveForward(DEFAULT_MOUSEWHEEL_MOVEMENT_STEPSIZE);
 		break;
 	}
 	default:
@@ -260,6 +194,7 @@ int main(int argc, char *argv[])
 
 
 	//mario 
+	/*
 	obj = new myObject();
 	obj->readObjects("models/MarioandLuigi/mario_obj.obj", true, false);
 	obj->scaleObject(0.1f, 0.1f, 0.1f);
@@ -277,6 +212,7 @@ int main(int argc, char *argv[])
 	obj->translate(0.0f, 50.0f, 10.0f);
 	scene.addObject(obj, "ball");
 	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 12.0f, 1.0f);
+	*/
 
 
 
@@ -328,15 +264,19 @@ int main(int argc, char *argv[])
 		physics.getModelMatrix(scene["ChristmasChallenge3"]);
 		scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
 
+		/*
 		physics.getModelMatrix(scene["ball"]);
 		scene["ball"]->displayObjects(curr_shader, view_matrix);
+		*/
 
 
 		curr_shader = shaders["shader_texturephong"];
 		curr_shader->start();
 		
+		/*
 		physics.getModelMatrix(scene["mario"]);
 		scene["mario"]->displayObjects(curr_shader, view_matrix);
+		*/
 
 
 		if (picked_object != nullptr)
