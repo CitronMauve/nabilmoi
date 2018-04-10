@@ -37,7 +37,7 @@ int mouse_position[2];
 bool mouse_button_pressed = false;
 bool quit = false;
 bool windowsize_changed = true;
-bool crystalballorfirstperson_view = false;
+// bool crystalballorfirstperson_view = false;
 float movement_stepsize = DEFAULT_KEY_MOVEMENT_STEPSIZE;
 
 
@@ -193,6 +193,19 @@ int main(int argc, char *argv[])
 	physics.addObject(obj, myPhysics::CONCAVE, btCollisionObject::CF_STATIC_OBJECT, 0.0f, 0.7f);
 
 
+
+	//camera
+	obj = new myObject();
+	if (!obj->readObjects("models/basketball.obj", true, false))
+		cout << "obj3 readScene failed.\n";
+	obj->scaleObject(10.0f, 10.0f, 10.0f);
+	obj->createmyVAO();
+	//obj->translate(glm::vec3(0,-10,0));
+	scene.addObject(obj, "camera");
+	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 12.0f, 1.0f);
+
+
+
 	//mario 
 	/*
 	obj = new myObject();
@@ -202,7 +215,8 @@ int main(int argc, char *argv[])
 	obj->translate(0.0f, 40.0f, 20.0f);
 	scene.addObject(obj, "mario");
 	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 100.0f, 0.1f);
-	
+		*/
+
 
 	//ball
 	obj = new myObject();
@@ -212,7 +226,6 @@ int main(int argc, char *argv[])
 	obj->translate(0.0f, 50.0f, 10.0f);
 	scene.addObject(obj, "ball");
 	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 12.0f, 1.0f);
-	*/
 
 
 
@@ -238,6 +251,16 @@ int main(int argc, char *argv[])
 			windowsize_changed = false;
 		}
 
+		physics.stepSimulation(SDL_GetPerformanceCounter() / static_cast<double>(SDL_GetPerformanceFrequency()));
+
+
+		physics.getModelMatrix(scene["camera"]);
+		
+		glm::vec4 tmp_vec = scene["camera"]->model_matrix * glm::vec4(cam1->camera_eye, 1.0f);
+		if (SDL_GetTicks() % 100 == 0) 
+		cam1->camera_eye = glm::vec3(tmp_vec[0] / tmp_vec[3], tmp_vec[1] / tmp_vec[3], tmp_vec[2] / tmp_vec[3]);
+
+
 		//Computing transformation matrices. Note that model_matrix will be computed and set in the displayScene function for each object separately
 		glViewport(0, 0, cam1->window_width, cam1->window_height);
 		glm::mat4 projection_matrix = cam1->projectionMatrix();
@@ -256,7 +279,6 @@ int main(int argc, char *argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		physics.stepSimulation( SDL_GetPerformanceCounter() / static_cast<double>(SDL_GetPerformanceFrequency()) );
 
 		curr_shader = shaders["shader_phong"];
 		curr_shader->start();
@@ -264,10 +286,10 @@ int main(int argc, char *argv[])
 		physics.getModelMatrix(scene["ChristmasChallenge3"]);
 		scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
 
-		/*
+		 
 		physics.getModelMatrix(scene["ball"]);
 		scene["ball"]->displayObjects(curr_shader, view_matrix);
-		*/
+	 
 
 
 		curr_shader = shaders["shader_texturephong"];

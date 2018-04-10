@@ -123,9 +123,7 @@ glm::mat4 myCamera::viewMatrix() const
 
 void myCamera::moveForward(float size)
 {
-	glm::vec3 copy_forward = camera_forward;
-	copy_forward[1] = 0;
-	camera_eye += size * copy_forward;
+	camera_eye += size * camera_forward;
 }
 
 void myCamera::moveLeft(float size)
@@ -140,9 +138,7 @@ void myCamera::moveRight(float size)
 
 void myCamera::moveBack(float size)
 {
-	glm::vec3 copy_forward = camera_forward;
-	copy_forward[1] = 0;
-	camera_eye -= size * copy_forward;
+	camera_eye -= size * camera_forward;
 }
 
 void myCamera::turnLeft(float size)
