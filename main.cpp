@@ -68,9 +68,12 @@ void processEvents(SDL_Event current_event)
 		if (current_event.key.keysym.sym == SDLK_ESCAPE)
 			quit = true;
 		if (current_event.key.keysym.sym == SDLK_r)
-			cam1->reset();
+		{
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(btVector3(cam1->camera_forward.x * 60, cam1->camera_forward.y * 60, cam1->camera_forward.z * 60));
+		}
 		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w)
-			cam1->moveForward(movement_stepsize);
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(btVector3(cam1->camera_forward.x * 30, cam1->camera_forward.y, cam1->camera_forward.z * 30));
+			//cam1->moveForward(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s)
 			cam1->moveBack(movement_stepsize);
 		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a)
@@ -200,9 +203,9 @@ int main(int argc, char *argv[])
 		cout << "obj3 readScene failed.\n";
 	obj->scaleObject(10.0f, 10.0f, 10.0f);
 	obj->createmyVAO();
-	//obj->translate(glm::vec3(0,-10,0));
+	obj->translate(glm::vec3(-20, 60,0));
 	scene.addObject(obj, "camera");
-	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 12.0f, 1.0f);
+	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 1, .0f);
 
 
 
@@ -255,9 +258,13 @@ int main(int argc, char *argv[])
 
 
 		physics.getModelMatrix(scene["camera"]);
+		physics.getModelMatrix(scene["ChristmasChallenge3"]);
+		physics.getModelMatrix(scene["ball"]);
+
+
+
 		
-		glm::vec4 tmp_vec = scene["camera"]->model_matrix * glm::vec4(cam1->camera_eye, 1.0f);
-		if (SDL_GetTicks() % 100 == 0) 
+		glm::vec4 tmp_vec = scene["camera"]->model_matrix * glm::vec4(0,0,0, 1.0f);
 		cam1->camera_eye = glm::vec3(tmp_vec[0] / tmp_vec[3], tmp_vec[1] / tmp_vec[3], tmp_vec[2] / tmp_vec[3]);
 
 
@@ -283,13 +290,10 @@ int main(int argc, char *argv[])
 		curr_shader = shaders["shader_phong"];
 		curr_shader->start();
 		
-		physics.getModelMatrix(scene["ChristmasChallenge3"]);
 		scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
-
-		 
-		physics.getModelMatrix(scene["ball"]);
 		scene["ball"]->displayObjects(curr_shader, view_matrix);
-	 
+	 	scene["camera"]->displayObjects(curr_shader, view_matrix);
+
 
 
 		curr_shader = shaders["shader_texturephong"];
