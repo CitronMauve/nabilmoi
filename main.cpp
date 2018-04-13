@@ -38,7 +38,7 @@ bool mouse_button_pressed = false;
 bool quit = false;
 bool windowsize_changed = true;
 // bool crystalballorfirstperson_view = false;
-float movement_stepsize = DEFAULT_KEY_MOVEMENT_STEPSIZE;
+float movement_stepsize = DEFAULT_KEY_MOVEMENT_STEPSIZE * 70;
 
 
 // Camera parameters.
@@ -69,17 +69,45 @@ void processEvents(SDL_Event current_event)
 			quit = true;
 		if (current_event.key.keysym.sym == SDLK_r)
 		{
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(btVector3(cam1->camera_forward.x * 60, cam1->camera_forward.y * 60, cam1->camera_forward.z * 60));
+			cam1->reset();
 		}
-		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w)
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(btVector3(cam1->camera_forward.x * 30, cam1->camera_forward.y, cam1->camera_forward.z * 30));
-			//cam1->moveForward(movement_stepsize);
-		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s)
-			cam1->moveBack(movement_stepsize);
-		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a)
-			cam1->moveLeft(movement_stepsize);
-		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d)
-			cam1->moveRight(movement_stepsize);
+		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w) {
+			cam1->moveForward(movement_stepsize);
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					cam1->camera_forward.x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					cam1->camera_forward.z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s) {
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					-cam1->camera_forward.x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					-cam1->camera_forward.z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a) {
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					-glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					-glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d) {
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+				)
+			);
+		}
 		break;
 	}
 	case SDL_MOUSEBUTTONDOWN:
@@ -196,8 +224,7 @@ int main(int argc, char *argv[])
 	physics.addObject(obj, myPhysics::CONCAVE, btCollisionObject::CF_STATIC_OBJECT, 0.0f, 0.7f);
 
 
-
-	//camera
+	// camera
 	obj = new myObject();
 	if (!obj->readObjects("models/basketball.obj", true, false))
 		cout << "obj3 readScene failed.\n";
@@ -205,20 +232,7 @@ int main(int argc, char *argv[])
 	obj->createmyVAO();
 	obj->translate(glm::vec3(-20, 60,0));
 	scene.addObject(obj, "camera");
-	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 1, .0f);
-
-
-
-	//mario 
-	/*
-	obj = new myObject();
-	obj->readObjects("models/MarioandLuigi/mario_obj.obj", true, false);
-	obj->scaleObject(0.1f, 0.1f, 0.1f);
-	obj->createmyVAO();
-	obj->translate(0.0f, 40.0f, 20.0f);
-	scene.addObject(obj, "mario");
-	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 100.0f, 0.1f);
-		*/
+	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 100.0f, .0f);
 
 
 	//ball
@@ -257,16 +271,17 @@ int main(int argc, char *argv[])
 		physics.stepSimulation(SDL_GetPerformanceCounter() / static_cast<double>(SDL_GetPerformanceFrequency()));
 
 
+		// camera
 		physics.getModelMatrix(scene["camera"]);
-		physics.getModelMatrix(scene["ChristmasChallenge3"]);
-		physics.getModelMatrix(scene["ball"]);
 
-
-
-		
-		glm::vec4 tmp_vec = scene["camera"]->model_matrix * glm::vec4(0,0,0, 1.0f);
+		glm::vec4 tmp_vec = scene["camera"]->model_matrix * glm::vec4(0, 0, 0, 1.0f);
 		cam1->camera_eye = glm::vec3(tmp_vec[0] / tmp_vec[3], tmp_vec[1] / tmp_vec[3], tmp_vec[2] / tmp_vec[3]);
+		((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(btVector3(0, ((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(), 0));
 
+		physics.getModelMatrix(scene["ChristmasChallenge3"]);
+
+		physics.getModelMatrix(scene["ball"]);
+		
 
 		//Computing transformation matrices. Note that model_matrix will be computed and set in the displayScene function for each object separately
 		glViewport(0, 0, cam1->window_width, cam1->window_height);
@@ -292,17 +307,10 @@ int main(int argc, char *argv[])
 		
 		scene["ChristmasChallenge3"]->displayObjects(curr_shader, view_matrix);
 		scene["ball"]->displayObjects(curr_shader, view_matrix);
-	 	scene["camera"]->displayObjects(curr_shader, view_matrix);
-
 
 
 		curr_shader = shaders["shader_texturephong"];
 		curr_shader->start();
-		
-		/*
-		physics.getModelMatrix(scene["mario"]);
-		scene["mario"]->displayObjects(curr_shader, view_matrix);
-		*/
 
 
 		if (picked_object != nullptr)
