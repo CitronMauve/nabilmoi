@@ -52,6 +52,46 @@ myPhysics physics;
 size_t picked_triangle_index = 0;
 myObject *picked_object = nullptr;
 
+void moveForward() {
+	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+		btVector3(
+			cam1->camera_forward.x * movement_stepsize,
+			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+			cam1->camera_forward.z * movement_stepsize
+		)
+	);
+}
+
+void moveLeft() {
+	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+		btVector3(
+			-glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+			-glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+		)
+	);
+}
+
+void moveRight() {
+	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+		btVector3(
+			glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+			glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+		)
+	);
+}
+
+void moveBack() {
+	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+		btVector3(
+			-cam1->camera_forward.x * movement_stepsize,
+			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+			-cam1->camera_forward.z * movement_stepsize
+		)
+	);
+}
+
 // Process the event.  
 void processEvents(SDL_Event current_event)
 {
@@ -67,46 +107,17 @@ void processEvents(SDL_Event current_event)
 	{
 		if (current_event.key.keysym.sym == SDLK_ESCAPE)
 			quit = true;
-		if (current_event.key.keysym.sym == SDLK_r)
-		{
-			cam1->reset();
-		}
 		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w) {
-			cam1->moveForward(movement_stepsize);
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-				btVector3(
-					cam1->camera_forward.x * movement_stepsize,
-					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-					cam1->camera_forward.z * movement_stepsize
-				)
-			);
-		}
-		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s) {
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-				btVector3(
-					-cam1->camera_forward.x * movement_stepsize,
-					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-					-cam1->camera_forward.z * movement_stepsize
-				)
-			);
+			moveForward();
 		}
 		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a) {
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-				btVector3(
-					-glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
-					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-					-glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
-				)
-			);
+			moveLeft();
 		}
 		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d) {
-			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-				btVector3(
-					glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
-					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-					glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
-				)
-			);
+			moveRight();
+		}
+		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s) {
+			moveBack();
 		}
 		break;
 	}
