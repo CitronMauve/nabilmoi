@@ -52,46 +52,6 @@ myPhysics physics;
 size_t picked_triangle_index = 0;
 myObject *picked_object = nullptr;
 
-void moveForward() {
-	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-		btVector3(
-			cam1->camera_forward.x * movement_stepsize,
-			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-			cam1->camera_forward.z * movement_stepsize
-		)
-	);
-}
-
-void moveLeft() {
-	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-		btVector3(
-			-glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
-			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-			-glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
-		)
-	);
-}
-
-void moveRight() {
-	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-		btVector3(
-			glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
-			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-			glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
-		)
-	);
-}
-
-void moveBack() {
-	((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
-		btVector3(
-			-cam1->camera_forward.x * movement_stepsize,
-			((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
-			-cam1->camera_forward.z * movement_stepsize
-		)
-	);
-}
-
 // Process the event.  
 void processEvents(SDL_Event current_event)
 {
@@ -107,17 +67,57 @@ void processEvents(SDL_Event current_event)
 	{
 		if (current_event.key.keysym.sym == SDLK_ESCAPE)
 			quit = true;
+		if (current_event.key.keysym.sym == SDLK_r)
+		{
+			cam1->reset();
+		}
 		if (current_event.key.keysym.sym == SDLK_UP || current_event.key.keysym.sym == SDLK_w) {
-			moveForward();
-		}
-		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a) {
-			moveLeft();
-		}
-		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d) {
-			moveRight();
+			cam1->moveForward(movement_stepsize);
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					cam1->camera_forward.x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					cam1->camera_forward.z * movement_stepsize
+				)
+			);
 		}
 		if (current_event.key.keysym.sym == SDLK_DOWN || current_event.key.keysym.sym == SDLK_s) {
-			moveBack();
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					-cam1->camera_forward.x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					-cam1->camera_forward.z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_LEFT || current_event.key.keysym.sym == SDLK_a) {
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					-glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					-glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_RIGHT || current_event.key.keysym.sym == SDLK_d) {
+			((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+				btVector3(
+					glm::cross(cam1->camera_forward, cam1->camera_up).x * movement_stepsize,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY(),
+					glm::cross(cam1->camera_forward, cam1->camera_up).z * movement_stepsize
+				)
+			);
+		}
+		if (current_event.key.keysym.sym == SDLK_SPACE){
+			if ((int)((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getY() == 0) {
+				((btRigidBody *)physics[scene["camera"]])->setLinearVelocity(
+					btVector3(
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getX(),
+					cam1->camera_up.y * 10,
+					((btRigidBody *)physics[scene["camera"]])->getLinearVelocity().getZ()
+					)
+				);
+			}
 		}
 		break;
 	}
@@ -243,7 +243,7 @@ int main(int argc, char *argv[])
 	obj->createmyVAO();
 	obj->translate(glm::vec3(-20, 60,0));
 	scene.addObject(obj, "camera");
-	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 100.0f, .0f);
+	physics.addObject(obj, myPhysics::CONVEX, btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK, 1.0f, .0f);
 
 
 	//ball
